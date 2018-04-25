@@ -3,35 +3,37 @@
 	<head>
 		<title> Workflow Dev </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+		<script src="./js/base.js"></script>
 
 		<!-- Bootstrap CSS -->
 	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-		<script>
-			var app = angular.module('myApp', []);
-			app.controller('myCtrl', function($scope, $http) {
-			    $http({
-			        method : "GET",
-			        url : "http://localhost:4400/rest/2.0/application/info"
-			    }).then(function (response) {
-			        $scope.instanceInfo = response.data;
-			    }, function (response) {
-			        $scope.instanceInfo = response.statusText;
-			    });
-			});
-		</script>
 	</head>
 
-	<body ng-app="myApp">
+	<body ng-app="myApp" class="text-center">
 		<h1> Workflow Development Tool </h1>
-		<div ng-app="myApp" ng-controller="myCtrl"> 
+		<div ng-app="myApp" ng-controller="myCntrl"> 
 
 			<p>Collibra Instance Information: </p>
+			<!--
 			<ul>
 				<li ng-repeat="x in instanceInfo">
 					{{x}}
 				</li>
 			</ul>
+			-->
+
+			<table class="table" ng-init="getJson('/application/info')">
+				<tr>
+					<th>Base Address</th>
+					<th>Version Number</th>
+					<th>Build Number</th>
+				</tr>
+			  	<tr>
+			    	<td>{{ instanceInfo.baseUrl }}</td>
+			    	<td>{{ instanceInfo.version.fullVersion }}</td>
+			    	<td>{{ instanceInfo.buildNumber }}</td>
+			  	</tr>
+			</table>
 
 		</div>
 	</body>
