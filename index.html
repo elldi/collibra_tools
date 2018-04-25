@@ -4,22 +4,35 @@
 		<title> Workflow Dev </title>
 		<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
 
+		<!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
 		<script>
-			angular.module('myApp', [])
-				.controller('myCtrl', ['$scope', function($scope) {
-				    $scope.count = 0;
-				    $scope.myFunc = function() {
-				        $scope.count++;
-				    };
-				}]);
+			var app = angular.module('myApp', []);
+			app.controller('myCtrl', function($scope, $http) {
+			    $http({
+			        method : "GET",
+			        url : "http://localhost:4400/rest/2.0/application/info"
+			    }).then(function (response) {
+			        $scope.instanceInfo = response.data;
+			    }, function (response) {
+			        $scope.instanceInfo = response.statusText;
+			    });
+			});
 		</script>
 	</head>
 
 	<body ng-app="myApp">
 		<h1> Workflow Development Tool </h1>
-		<div ng-controller="myCtrl">
-			<button ng-click="myFunc()">OK</button>
-			<p>The button has been clicked {{count}} times.</p>
+		<div ng-app="myApp" ng-controller="myCtrl"> 
+
+			<p>Collibra Instance Information: </p>
+			<ul>
+				<li ng-repeat="x in instanceInfo">
+					{{x}}
+				</li>
+			</ul>
+
 		</div>
 	</body>
 
