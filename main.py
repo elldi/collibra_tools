@@ -37,13 +37,20 @@ def createUser():
     print r.json()        
     return True
 
+def getWorkflowId():
+    try:
+        r = requests.get('http://localhost:4400/rest/2.0/workflowDefinitions?enabled=true&limit=0&name=Asset%20Approval&offset=0', auth=('Admin', 'admin'))
+        return r.json()['results'][0]['id']
+    except ValueError:
+        return False
+
+    
+
 #-----------
 # Main
 #-----------
 
 print isConnected()
 
-print getAssetTypes()
-
-print createUser()
+print getWorkflowId()
 
