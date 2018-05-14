@@ -15,7 +15,7 @@ import json
 def isConnected():
     try:
         r = requests.get('http://localhost:4400/rest/2.0/application/info')
-        print r.json()['buildNumber']
+        ##print r.json()['buildNumber']
         return True
     except ValueError:
         return False
@@ -39,18 +39,39 @@ def createUser():
 
 def getWorkflowId():
     try:
-        r = requests.get('http://localhost:4400/rest/2.0/workflowDefinitions?enabled=true&limit=0&name=Asset%20Approval&offset=0', auth=('Admin', 'admin'))
+        r = requests.get('http://localhost:4400/rest/2.0/workflowDefinitions?enabled=true&limit=0&name=Approval%20Process&offset=0', auth=('Admin', 'admin'))
         return r.json()['results'][0]['id']
     except ValueError:
         return False
 
+def startWorkflow(workflowId, assetId):
+
+    headers = {'Content-Type' : 'application/x-www-form-urlencoded'}
+    payload = {'items': assetId, 'itemResourceType': 'TE', 'start': '1526315246216'}
+    url = 'http://localhost:4400/rest/latest/workflow/' + workflowId + '/start'
+    print url
+    r = requests.post(url, headers=headers, data=payload, auth=('Admin','admin'))
+    return r.text
     
 
+def init():
+    print "Welcome to the DT2 Workflow testing suite!"
+
+    assetId = raw_input("Enter asset id: ")
+    workflowId = raw_input("Enter workflow definition id: ")
+
+    print "Collibra Connection?"
+    print isConnected()
+
+    print startWorkflow(workflowId, assetId)
+    
 #-----------
 # Main
 #-----------
 
-print isConnected()
+init()
 
-print getWorkflowId()
+
+
+
 
