@@ -37,6 +37,13 @@ def createUser():
     print r.json()        
     return True
 
+def getAllWorkflows():
+    try:
+        r = requests.get('http://localhost:4400/rest/2.0/workflowDefinitions?enabled=true&limit=0&offset=0', auth=('Admin', 'admin'))
+        return r.json()['results']
+    except ValueError:
+        return False  
+
 def getWorkflowId():
     try:
         r = requests.get('http://localhost:4400/rest/2.0/workflowDefinitions?enabled=true&limit=0&name=Approval%20Process&offset=0', auth=('Admin', 'admin'))
@@ -57,21 +64,27 @@ def startWorkflow(workflowId, assetId):
 def init():
     print "Welcome to the DT2 Workflow testing suite!"
 
-    assetId = raw_input("Enter asset id: ")
-    workflowId = raw_input("Enter workflow definition id: ")
-
     print "Collibra Connection?"
     print isConnected()
 
+    workflowId = raw_input("Enter workflow definition id: ")
+    assetId = raw_input("Enter asset id: ")
+
     print startWorkflow(workflowId, assetId)
-    
+
+def testing():
+    workflows = getAllWorkflows()
+
+    for workflowDef in workflows:
+        print(workflowDef['name'])
+
+
+        
 #-----------
 # Main
 #-----------
 
-init()
 
-
-
-
+#init()
+testing()
 
