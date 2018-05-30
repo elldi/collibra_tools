@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <collibra>
-	<url></url>
-	<username></username>
-	<password></password>
+	<url>http://localhost:4400</url>
+	<username>Admin</username>
+	<password>admin</password>
 </collibra>

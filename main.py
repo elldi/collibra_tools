@@ -64,8 +64,7 @@ def startWorkflow(workflowId, assetId):
 def init():
     print "Welcome to the DT2 Workflow testing suite!"
 
-    print "Collibra Connection?"
-    print isConnected()
+    print "Collibra Connection? " + isConnected() 
 
     workflowId = raw_input("Enter workflow definition id: ")
     assetId = raw_input("Enter asset id: ")
