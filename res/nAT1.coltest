@@ -1,4 +1,3 @@
 ## Collibra Test Script
-create domain called 'Testing' oftype 'Business Glossary'
 create asset called 'Elliot' in 'Testing' oftype 'Business Term'
 start workflow called 'elliot-testing' on 'Elliot'
