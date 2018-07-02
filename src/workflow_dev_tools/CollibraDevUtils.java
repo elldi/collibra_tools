@@ -91,7 +91,7 @@ public class CollibraDevUtils {
 	public boolean postFile(String uri, String filePath){
 		String url = baseUrl + uri;
 		
-		System.out.println(url);
+		//System.out.println(url);
 		
 		CloseableHttpClient client = HttpClientBuilder.create().build();
 		HttpPost post = new HttpPost(url);
@@ -174,7 +174,7 @@ public class CollibraDevUtils {
 		pass = (new CollibraDevUtils().getData("application/info")) ? testing.another().passed() :  testing.another().failed();
 		pass = (new CollibraDevUtils().getData("workflowDefinitions")) ? testing.another().passed() :  testing.another().failed();
 		
-		pass = (new CollibraDevUtils().postFile("workflowDefinitions", "C:\\Users\\Public\\Documents\\eclipse neon\\workspace\\wd-tool\\workflows\\ExtractComments.bpmn")) ? testing.another().passed() :  testing.another().failed();
+		pass = (new CollibraDevUtils().postFile("workflowDefinitions", "C:\\Users\\elliot\\Documents\\personal\\workflow_dev_tools\\workflows\\testing.bpmn")) ? testing.another().passed() :  testing.another().failed();
 		pass = (new CollibraDevUtils().postData("users")) ? testing.another().passed() :  testing.another().failed();
 	
 		return testing;
