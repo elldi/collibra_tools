@@ -8,10 +8,10 @@ import com.google.gson.Gson;
 
 public class StatusDashboard {
 
-
-
+    
 
     public static void getStatusOf(Environment[] enviroList){
+
 
         for (Environment enviro: enviroList) {
 
