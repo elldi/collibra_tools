@@ -23,11 +23,6 @@ import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
-//import com.google.gson.Gson;
-
-//import Results;
-
-
 
 public class CollibraDevUtils {
 	
@@ -57,7 +52,7 @@ public class CollibraDevUtils {
 		}
 	}
 	
-	public boolean getData(String uri) {
+	public String getData(String uri) {
 		
 		String url = baseUrl + uri;
 		
@@ -79,13 +74,14 @@ public class CollibraDevUtils {
 			//Results r1  = gson.fromJson(json, Results.class);
 			
 			//System.out.println(r1.total);
+
+			return json;
 			
 		} catch (IOException e1){
 			
-			return false; 
+			return "";
 		}
-		
-		return true; 
+
 	}
 	
 	public boolean postFile(String uri, String filePath){
@@ -169,23 +165,24 @@ public class CollibraDevUtils {
 		
 		int pass = 0;
 		
-		pass = (new CollibraDevUtils().getData("assets")) ? testing.another().passed() : testing.another().failed();
+		//pass = (new CollibraDevUtils().getData("assets")) ? testing.another().passed() : testing.another().failed();
 		
-		pass = (new CollibraDevUtils().getData("application/info")) ? testing.another().passed() :  testing.another().failed();
-		pass = (new CollibraDevUtils().getData("workflowDefinitions")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraDevUtils().getData("application/info")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraDevUtils().getData("workflowDefinitions")) ? testing.another().passed() :  testing.another().failed();
 		
-		pass = (new CollibraDevUtils().postFile("workflowDefinitions", "C:\\Users\\elliot\\Documents\\personal\\workflow_dev_tools\\workflows\\testing.bpmn")) ? testing.another().passed() :  testing.another().failed();
-		pass = (new CollibraDevUtils().postData("users")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraDevUtils().postFile("workflowDefinitions", "C:\\Users\\elliot\\Documents\\personal\\workflow_dev_tools\\workflows\\testing.bpmn")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraDevUtils().postData("users")) ? testing.another().passed() :  testing.another().failed();
 	
 		return testing;
 	}
-	
+
+	/*
 	public static void main(String args[]){
-		
 		System.out.println(new CollibraDevUtils().runTests());
 		
-		
 	}
+
+	*/
 
 
 }
