@@ -1,6 +1,6 @@
-# Collibra Utilities
+# Collibra Tools
 
-Various leight weight programs to provide a more seamless Collibra experience from the administration side.
+Various light weight programs to provide a more seamless Collibra experience from the administration side.
 
 ## Environment Status Dashboard
 * Currently under development.
