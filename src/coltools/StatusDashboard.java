@@ -1,4 +1,4 @@
-package workflow_dev_tools;
+package coltools;
 /**
  * Created by elliot on 11/07/2018.
  */
@@ -15,7 +15,7 @@ public class StatusDashboard {
     public static void main(String[] args) {
 
         // Get from the console Rest api
-        CollibraDevUtils utils = new CollibraDevUtils("http://localhost:4402/rest/", "Admin", "admin");
+        CollibraRest utils = new CollibraRest("http://localhost:4402/rest/", "Admin", "admin");
 
         // With method environment
         String json = utils.getData("environment");

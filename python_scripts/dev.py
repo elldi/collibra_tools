@@ -48,7 +48,7 @@ class DataManip:
 def init():
     ##fileLoc = raw_input("Enter test script: ")
 
-    fileObject = open('C:\Users\elliot\Documents\personal\workflow_dev_tools\\res\\nAT1.coltest', 'r')
+    fileObject = open('C:\Users\elliot\Documents\personal\coltools\\res\\nAT1.coltest', 'r')
 
     dataManip = DataManip("http://localhost:4400")
     

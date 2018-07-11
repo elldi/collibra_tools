@@ -1,15 +1,11 @@
-package workflow_dev_tools;
+package coltools;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.File;
-import java.io.FileInputStream;
 import java.util.Base64;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
@@ -24,7 +20,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.util.EntityUtils;
 
 
-public class CollibraDevUtils {
+public class CollibraRest {
 	
 	private String baseUrl;
 	private String username;
@@ -32,15 +28,15 @@ public class CollibraDevUtils {
 	private String baseAuth; 
 	private final String USER_AGENT = "Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.79 Safari/537.36";
 	
-	public CollibraDevUtils(){
+	public CollibraRest(){
 		this("http://localhost:4400/rest/2.0/", "Admin", "admin");
 	}
 	
-	public CollibraDevUtils(String username, String password){
+	public CollibraRest(String username, String password){
 		this("http://localhost:4400/rest/2.0/", username, password);
 	}
 	
-	public CollibraDevUtils(String baseUrl, String username, String password){
+	public CollibraRest(String baseUrl, String username, String password){
 		
 		this.baseUrl = baseUrl;
 		this.username = username;
@@ -165,20 +161,20 @@ public class CollibraDevUtils {
 		
 		int pass = 0;
 		
-		//pass = (new CollibraDevUtils().getData("assets")) ? testing.another().passed() : testing.another().failed();
+		//pass = (new CollibraRest().getData("assets")) ? testing.another().passed() : testing.another().failed();
 		
-		//pass = (new CollibraDevUtils().getData("application/info")) ? testing.another().passed() :  testing.another().failed();
-		//pass = (new CollibraDevUtils().getData("workflowDefinitions")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraRest().getData("application/info")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraRest().getData("workflowDefinitions")) ? testing.another().passed() :  testing.another().failed();
 		
-		//pass = (new CollibraDevUtils().postFile("workflowDefinitions", "C:\\Users\\elliot\\Documents\\personal\\workflow_dev_tools\\workflows\\testing.bpmn")) ? testing.another().passed() :  testing.another().failed();
-		//pass = (new CollibraDevUtils().postData("users")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraRest().postFile("workflowDefinitions", "C:\\Users\\elliot\\Documents\\personal\\coltools\\workflows\\testing.bpmn")) ? testing.another().passed() :  testing.another().failed();
+		//pass = (new CollibraRest().postData("users")) ? testing.another().passed() :  testing.another().failed();
 	
 		return testing;
 	}
 
 	/*
 	public static void main(String args[]){
-		System.out.println(new CollibraDevUtils().runTests());
+		System.out.println(new CollibraRest().runTests());
 		
 	}
 
