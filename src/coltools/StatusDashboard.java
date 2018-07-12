@@ -37,7 +37,7 @@ public class StatusDashboard {
     public static void main(String[] args) {
 
 
-        getStatusOf(new Environment[]{new Environment("http://localhost:4402/rest/", "Admin", "admin")});
+        getStatusOf(new Environment[]{new Environment("http://192.168.47.2:4402/rest/", "Admin", "admin")});
 
 
     }

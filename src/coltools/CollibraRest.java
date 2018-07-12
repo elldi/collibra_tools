@@ -128,9 +128,9 @@ public class CollibraRest {
 		
 		String url = baseUrl + uri;
 		String JSON_STRING = "{\"userName\": \"test\",\"firstName\": \"test\",\"lastName\": \"ets\",\"emailAddress\": \"elliot.dines@db.com\",\"gender\": \"MALE\"}";
-		
+
 		StringEntity requestEntity = new StringEntity(JSON_STRING,ContentType.APPLICATION_JSON);
-		
+
 		HttpPost post = new HttpPost(url);
 		
 		CloseableHttpClient client = HttpClientBuilder.create().build();
