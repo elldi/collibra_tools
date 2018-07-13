@@ -32,8 +32,12 @@ public class StartStopEnv {
 
             Boolean actionTrue = utils.postData("environment/" + envID + "/" + action);
 
-            if (actionTrue) {
+            if (actionTrue && action=="Stop") {
+                System.out.println("Environment: " + envName + " has been " + action + "ped successfully!");
+            }else if (actionTrue && action=="Start"){
                 System.out.println("Environment: " + envName + " has been " + action + "ed successfully!");
+            }else {
+                System.out.println("No change made to environment.");
             }
         }
 
