@@ -34,7 +34,12 @@ public class StatusDashboard {
 
     }
 
-    public static ArrayList<Environment> addEnvironment(ArrayList<Environment> enviroList, String baseUrl, String userName, String password){
+    public static ArrayList<Environment> addEnvironment(ArrayList<Environment> enviroList, String baseUrl, String userName, String password)  {
+        for (Environment enviro:enviroList){
+            if (baseUrl.equals(enviro.getBaseUrl())){
+                //throw new repeatException();
+            }
+        }
         //add new environment to arrayList based on baseUrl, username and password
         enviroList.add(new Environment(baseUrl,userName,password));
         return enviroList;
@@ -60,6 +65,35 @@ public class StatusDashboard {
         for (int i=0; i < matchInt.size(); i++){
             enviroList.remove(i);
         }
+        return enviroList;
+    }
+
+    public static ArrayList<Environment> editEnvironment(ArrayList<Environment> enviroList, String baseUrl, String newUserName, String newPassword) {
+        Integer index=0;
+        Integer count=0;
+        boolean found=false;
+        for (Environment enviro: enviroList){
+            if (baseUrl.equals(enviro.getBaseUrl())){
+                index=count;
+                found=true;
+            }
+            count++;
+        }
+
+        if (found) {
+            enviroList.get(index).setUserName(newUserName);
+            enviroList.get(index).setPassword(newPassword);
+        }
+
+        return enviroList;
+    }
+
+    public static ArrayList<Environment> editEnvironment(Integer index, ArrayList<Environment> enviroList, String newBaseUrl, String newUserName, String newPassword) {
+
+        enviroList.get(index).setBaseUrl(newBaseUrl);
+        enviroList.get(index).setUserName(newUserName);
+        enviroList.get(index).setPassword(newPassword);
+
         return enviroList;
     }
 
