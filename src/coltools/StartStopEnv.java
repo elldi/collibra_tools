@@ -6,11 +6,12 @@ package coltools;
 
 import coldata.EnviroStatus;
 import com.google.gson.Gson;
-import java.util.UUID;
+
+import java.util.ArrayList;
 
 public class StartStopEnv {
 
-    public static void stopStartEnvironment(Environment[] enviroList, String action){
+    public static void stopStartEnvironment(ArrayList<Environment> enviroList, String action){
         for (Environment enviro: enviroList) {
 
             // Get from the console Rest api
@@ -29,8 +30,9 @@ public class StartStopEnv {
             // Get ID of environment
             String envID = r1.id.toString();
             String envName = r1.name;
+            String JSON_STRING = "{\"userName\": \"test\",\"firstName\": \"test\",\"lastName\": \"ets\",\"emailAddress\": \"elliot.dines@db.com\",\"gender\": \"MALE\"}";
 
-            Boolean actionTrue = utils.postData("environment/" + envID + "/" + action);
+            Boolean actionTrue = utils.postData("environment/" + envID + "/" + action, JSON_STRING);
 
             if (actionTrue && action=="Stop") {
                 System.out.println("Environment: " + envName + " has been " + action + "ped successfully!");
@@ -42,12 +44,12 @@ public class StartStopEnv {
         }
 
     }
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
 
 
         stopStartEnvironment(new Environment[]{new Environment("http://192.168.47.2:4402/rest/", "Admin", "admin")}, "Stop");
 
 
-    }
+    }*/
 }
 
