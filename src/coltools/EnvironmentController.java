@@ -11,11 +11,8 @@ import java.util.List;
  */
 public class EnvironmentController {
 
-    private static List<Environment> currentEnvironments;
+    private static List<Environment> currentEnvironments = new ArrayList<>();
 
-    public EnvironmentController(){
-        currentEnvironments = new ArrayList<>();
-    }
 
     public void getStatusOfAllEnvironments(){
 
@@ -40,7 +37,15 @@ public class EnvironmentController {
 
     }
 
-    public List<Environment> addEnvironment(String baseUrl, String userName, String password)  {
+    public static String getEnvironments(){
+        String output = "";
+
+        for(Environment environment: currentEnvironments) output += environment.getBaseUrl() + ", ";
+
+        return output;
+    }
+
+    public static boolean addEnvironment(String baseUrl, String userName, String password)  {
         for (Environment enviro : currentEnvironments){
             if (baseUrl.equals(enviro.getBaseUrl())){
                 //throw new RepeatException();
@@ -48,7 +53,7 @@ public class EnvironmentController {
         }
         //add new environment to arrayList based on baseUrl, username and password
         currentEnvironments.add(new Environment(baseUrl,userName,password));
-        return currentEnvironments;
+        return true;
     }
 
     public static List<Environment> removeEnvironment(ArrayList<Environment> enviroList, ArrayList<Environment> removeList){
