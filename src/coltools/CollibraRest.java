@@ -127,7 +127,6 @@ public class CollibraRest {
 	public boolean postData(String uri, String JSON_STRING){
 		
 		String url = baseUrl + uri;
-		//String JSON_STRING = "{\"userName\": \"test\",\"firstName\": \"test\",\"lastName\": \"ets\",\"emailAddress\": \"elliot.dines@db.com\",\"gender\": \"MALE\"}";
 
 		StringEntity requestEntity = new StringEntity(JSON_STRING,ContentType.APPLICATION_JSON);
 
@@ -148,11 +147,11 @@ public class CollibraRest {
 			e1.printStackTrace();
 			return false; 
 		}
-		
-		
-		
+
 		return true;
 	}
+
+	// Add new post data method that doesn't require JSON string in body.
 	
 	public TestResults runTests(){
 		System.out.println("Starting Testing");
