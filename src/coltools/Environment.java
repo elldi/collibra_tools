@@ -24,4 +24,16 @@ public class Environment {
     public String getPassword(){
         return password;
     }
+
+    public void setBaseUrl(String baseUrl) {
+        this.baseUrl = baseUrl;
+    }
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
 }
