@@ -6,36 +6,44 @@ package coltools;
 public class Environment {
 
     private String baseUrl;
-    private String userName;
+    private String username;
     private String password;
     private String status;
+    private String name;
 
-    public Environment(String baseUrl, String userName, String password){
-        this.baseUrl = baseUrl;
-        this.userName = userName;
-        this.password = password;
+    public Environment(){
+        baseUrl ="None";
+        username = "None";
+        password = "None";
+        status = "None";
+        name = "None";
     }
 
+
     public String getBaseUrl(){ return baseUrl; }
-    public String getUserName(){
-        return userName;
+    public String getUsername(){
+        return username;
     }
     public String getPassword(){
         return password;
     }
     public String getStatus(){ return status; }
+    public String getName(){ return name; }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setUsername(String userName) {
+        this.username = userName;
     }
     public void setPassword(String password) {
         this.password = password;
     }
     public void setStatus(String status){
         this.status = status;
+    }
+    public void setName(String name){
+        this.name = name;
     }
 
 

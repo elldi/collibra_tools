@@ -2,22 +2,23 @@
 <html lang="en">
     <head>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta http-equiv="refresh" content="30; URL=/environments">
     </head>
     <body>
-        <h1 class= "text-center"> Environments </h1>
-
-        <div class="row">
+        <h1 class= "text-center"> DTSquared Environments </h1>
+        <div class="card-deck">
         #foreach($env in $enviros)
-            <div class="col-sm-3 mb-3">
-            <div class="card text-center" style="width: 18rem;">
-                <h5 class="card-header">$env.getBaseUrl()</h5>
-                <div class="card-body">
+            #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end
+            #if($env.getStatus() == "STOPPING") #set( $colour = "warning" ) #end
+            #if($env.getStatus() == "STOPPED") #set( $colour = "danger" ) #end
+            <div class="card text-center border-$colour">
+                <h5 class="card-header">$env.getName()</h5>
+                <div class="card-body text-$colour">
                     <h6 class="card-title">$env.getStatus() </h6>
-                    <p class="card-text">DEV/UAT/PROD/WHATEVER</p>
+                    <p class="card-text">$env.getBaseUrl()</p>
                     <a href="#" class="btn btn-primary">Console</a>
                     <a href="#" class="btn btn-primary">Edit</a>
                 </div>
-            </div>
             </div>
         #end
         </div>

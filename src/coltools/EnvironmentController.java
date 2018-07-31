@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -56,14 +57,24 @@ public class EnvironmentController {
         return currentEnvironments;
     }
 
-    public static boolean addEnvironment(String baseUrl, String userName, String password)  {
-//        for (Environment enviro : currentEnvironments){
-//            if (baseUrl.equals(enviro.getBaseUrl())){
-//                //throw new RepeatException();
-//            }
-//        }
-        //add new environment to arrayList based on baseUrl, username and password
-        currentEnvironments.add(new Environment(baseUrl,userName,password));
+    public static boolean addEnvironment(Map<String, String [] > params)  {
+
+        Environment e1 = new Environment();
+        if(params.containsKey("baseUrl") || params.get("baseUrl").length > 0){
+            e1.setBaseUrl(params.get("baseUrl")[0]);
+        }
+        if(params.containsKey("username") || params.get("username").length > 0){
+            e1.setUsername(params.get("username")[0]);
+        }
+        if(params.containsKey("password") || params.get("password").length > 0){
+            e1.setPassword(params.get("password")[0]);
+        }
+        if(params.containsKey("name") || params.get("name").length > 0){
+            System.out.println(params.get("name")[0]);
+            e1.setName(params.get("name")[0]);
+        }
+
+        currentEnvironments.add(e1);
         return true;
     }
 
@@ -103,7 +114,7 @@ public class EnvironmentController {
         }
 
         if (found) {
-            enviroList.get(index).setUserName(newUserName);
+            enviroList.get(index).setUsername(newUserName);
             enviroList.get(index).setPassword(newPassword);
         }
 
@@ -113,7 +124,7 @@ public class EnvironmentController {
     public static ArrayList<Environment> editEnvironment(Integer index, ArrayList<Environment> enviroList, String newBaseUrl, String newUserName, String newPassword) {
 
         enviroList.get(index).setBaseUrl(newBaseUrl);
-        enviroList.get(index).setUserName(newUserName);
+        enviroList.get(index).setUsername(newUserName);
         enviroList.get(index).setPassword(newPassword);
 
         return enviroList;
