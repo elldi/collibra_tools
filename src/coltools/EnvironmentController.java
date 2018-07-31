@@ -5,6 +5,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Created by elliot on 30/07/2018.
@@ -14,43 +15,53 @@ public class EnvironmentController {
     private static List<Environment> currentEnvironments = new ArrayList<>();
 
 
-    public void getStatusOfAllEnvironments(){
+    public static void updateStatusOfAllEnvironments(){
 
 
         for (Environment enviro: currentEnvironments) {
 
+            // Stubbed for POC
+
             // Get from the console Rest api
-            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+            //CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
 
             // With method environment
-            String json = utils.getData("environment");
+            //String json = utils.getData("environment");
 
             // Remove json object from array
-            json = json.substring(1,json.length() - 1);
+            //json = json.substring(1,json.length() - 1);
 
             // Parse into a EnviroStatus object
-            Gson gson = new Gson();
-            EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
+            //Gson gson = new Gson();
+            //EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
 
-            System.out.println(r1.status);
+            //System.out.println(r1.status);
+
+            int rand = ThreadLocalRandom.current().nextInt(1, 4);
+            switch (rand){
+                case 1:
+                    enviro.setStatus("RUNNING");
+                    break;
+                case 2:
+                    enviro.setStatus("STOPPING");
+                    break;
+                case 3:
+                    enviro.setStatus("STOPPED");
+                    break;
+            }
         }
-
     }
 
-    public static String getEnvironments(){
-        String output = "";
-
-        for(Environment environment: currentEnvironments) output += environment.getBaseUrl() + ", ";
-
-        return output;
+    public static List<Environment> getEnvironments(){
+        return currentEnvironments;
     }
 
     public static boolean addEnvironment(String baseUrl, String userName, String password)  {
-        for (Environment enviro : currentEnvironments){
-            if (baseUrl.equals(enviro.getBaseUrl())){
-                //throw new RepeatException();
-            }
-        }
+//        for (Environment enviro : currentEnvironments){
+//            if (baseUrl.equals(enviro.getBaseUrl())){
+//                //throw new RepeatException();
+//            }
+//        }
         //add new environment to arrayList based on baseUrl, username and password
         currentEnvironments.add(new Environment(baseUrl,userName,password));
         return true;

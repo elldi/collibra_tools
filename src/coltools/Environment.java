@@ -8,6 +8,7 @@ public class Environment {
     private String baseUrl;
     private String userName;
     private String password;
+    private String status;
 
     public Environment(String baseUrl, String userName, String password){
         this.baseUrl = baseUrl;
@@ -15,15 +16,14 @@ public class Environment {
         this.password = password;
     }
 
-    public String getBaseUrl(){
-        return baseUrl;
-    }
+    public String getBaseUrl(){ return baseUrl; }
     public String getUserName(){
         return userName;
     }
     public String getPassword(){
         return password;
     }
+    public String getStatus(){ return status; }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -33,6 +33,9 @@ public class Environment {
     }
     public void setPassword(String password) {
         this.password = password;
+    }
+    public void setStatus(String status){
+        this.status = status;
     }
 
 

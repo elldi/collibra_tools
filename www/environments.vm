@@ -4,13 +4,22 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <h1> Environments </h1>
-        <div class="containter">
-            <ul>
-            #foreach($env in $enviros)
-                <li> $env.getBaseUrl() - $env.getStatus() </li>
-            #end
-            </ul>
+        <h1 class= "text-center"> Environments </h1>
+
+        <div class="row">
+        #foreach($env in $enviros)
+            <div class="col-sm-3 mb-3">
+            <div class="card text-center" style="width: 18rem;">
+                <h5 class="card-header">$env.getBaseUrl()</h5>
+                <div class="card-body">
+                    <h6 class="card-title">$env.getStatus() </h6>
+                    <p class="card-text">DEV/UAT/PROD/WHATEVER</p>
+                    <a href="#" class="btn btn-primary">Console</a>
+                    <a href="#" class="btn btn-primary">Edit</a>
+                </div>
+            </div>
+            </div>
+        #end
         </div>
     </body>
 </html>
