@@ -16,6 +16,20 @@ public class EnvironmentController {
 
     private static List<Environment> currentEnvironments = new ArrayList<>();
 
+    public static void initialise(){
+
+        // Check directory for environment files, if files exists read and import into currentEnvironments.
+
+    }
+
+
+    public static void saveEnvironments(){
+        // Iterate over environments list, convert to json and save in file.
+        
+
+    }
+
+
 
     public static void updateStatusOfAllEnvironments(){
 
