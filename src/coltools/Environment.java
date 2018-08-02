@@ -10,6 +10,7 @@ public class Environment {
     private String password;
     private String status;
     private String name;
+    private String id;
 
     public Environment(){
         baseUrl ="None";
@@ -17,6 +18,7 @@ public class Environment {
         password = "None";
         status = "None";
         name = "None";
+        id = "None";
     }
 
 
@@ -29,6 +31,7 @@ public class Environment {
     }
     public String getStatus(){ return status; }
     public String getName(){ return name; }
+    public String getId(){ return id; }
 
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
@@ -44,6 +47,9 @@ public class Environment {
     }
     public void setName(String name){
         this.name = name;
+    }
+    public void setId(String id){
+        this.id = id;
     }
 
 

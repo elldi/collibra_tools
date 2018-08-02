@@ -25,6 +25,7 @@ public class StatusDashboard {
                 get("", (req,res) -> {
 
                     EnvironmentController.updateStatusOfAllEnvironments();
+                    EnvironmentController.updateIdsOfAllEnvironments();
 
                     Velocity.init();
 
@@ -42,12 +43,19 @@ public class StatusDashboard {
             });
             path("/environment", () -> {
                 // GET, PATCH and  DELETE needed for environment model.
-                post("","application/x-www-form-urlencoded", (req,res) ->{
+                post("", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
                     return EnvironmentController.addEnvironment(req.queryMap().toMap());
                 });
 
+            });
+            path("/environment/" , () -> {
+                put(":enviroID", "application/x-www-form-urlencoded", (req, res) ->{
+                    System.out.println(req.queryParams("baseUrl"));
+
+                    return EnvironmentController.editEnvironment(req.params(":enviroID"), req.queryMap().toMap());
+                });
             });
 
         });

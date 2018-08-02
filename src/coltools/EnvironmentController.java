@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -51,6 +52,33 @@ public class EnvironmentController {
                     break;
             }
         }
+    }
+    public static List<Environment> updateIdsOfAllEnvironments(){
+
+
+        for (Environment enviro: currentEnvironments) {
+
+            // Stubbed for POC
+
+//            // Get from the console Rest api
+//            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+//
+//            // With method environment
+//            String json = utils.getData("environment");
+//
+//            // Remove json object from array
+//            json = json.substring(1,json.length() - 1);
+//
+//            // Parse into a EnviroStatus object
+//            Gson gson = new Gson();
+//            EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
+//
+//            System.out.println(r1.id.toString());
+
+            enviro.setId(UUID.randomUUID().toString());
+
+        }
+        return currentEnvironments;
     }
 
     public static List<Environment> getEnvironments(){
@@ -101,12 +129,16 @@ public class EnvironmentController {
         return enviroList;
     }
 
-    public static ArrayList<Environment> editEnvironment(ArrayList<Environment> enviroList, String baseUrl, String newUserName, String newPassword) {
+    public static List<Environment> editEnvironment(String id, Map<String, String[] > params) {
         Integer index=0;
         Integer count=0;
         boolean found=false;
-        for (Environment enviro: enviroList){
-            if (baseUrl.equals(enviro.getBaseUrl())){
+
+        String[] editEnv = params.get(id);
+
+        for (Environment enviro: currentEnvironments){
+
+            if (id.equals(enviro.getId())){
                 index=count;
                 found=true;
             }
@@ -114,11 +146,21 @@ public class EnvironmentController {
         }
 
         if (found) {
-            enviroList.get(index).setUsername(newUserName);
-            enviroList.get(index).setPassword(newPassword);
+            if(params.containsKey("baseUrl") || params.get("baseUrl").length > 0){
+                currentEnvironments.get(index).setBaseUrl(params.get("baseUrl")[0]);
+            }
+            if(params.containsKey("username") || params.get("username").length > 0){
+                currentEnvironments.get(index).setUsername(params.get("username")[0]);
+            }
+            if(params.containsKey("password") || params.get("password").length > 0){
+                currentEnvironments.get(index).setPassword(params.get("password")[0]);
+            }
+            if(params.containsKey("name") || params.get("name").length > 0){
+                System.out.println(params.get("name")[0]);
+                currentEnvironments.get(index).setName(params.get("name")[0]);
+            }
         }
-
-        return enviroList;
+        return currentEnvironments;
     }
 
     public static ArrayList<Environment> editEnvironment(Integer index, ArrayList<Environment> enviroList, String newBaseUrl, String newUserName, String newPassword) {
