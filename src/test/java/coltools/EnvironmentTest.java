@@ -1,3 +1,5 @@
+package coltools;
+
 import static org.junit.Assert.assertEquals;
 
 import coltools.Environment;

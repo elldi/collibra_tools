@@ -9,9 +9,7 @@ import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
-/**
- * Created by elliot on 30/07/2018.
- */
+
 public class EnvironmentController {
 
     private static List<Environment> currentEnvironments = new ArrayList<>();
@@ -23,9 +21,24 @@ public class EnvironmentController {
     }
 
 
-    public static void saveEnvironments(){
+    public static boolean saveEnvironments(){
         // Iterate over environments list, convert to json and save in file.
-        
+
+        int counter = 0 ;
+
+        for (Environment enviro: currentEnvironments) {
+            Gson gson = new Gson();
+
+            String output = gson.toJson(enviro);
+
+            if(new DataStore().write(enviro.getName() + ".json", output))
+                counter++;
+
+
+
+        }
+
+        return counter == currentEnvironments.size();
 
     }
 
@@ -118,6 +131,10 @@ public class EnvironmentController {
 
         currentEnvironments.add(e1);
         return true;
+    }
+
+    public static boolean addEnvironment(Environment e){
+        return currentEnvironments.add(e);
     }
 
     public static List<Environment> removeEnvironment(ArrayList<Environment> enviroList, ArrayList<Environment> removeList){
