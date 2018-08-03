@@ -8,6 +8,7 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
 
+
 import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +48,16 @@ public class StatusDashboard {
                     System.out.println(req.queryParams("baseUrl"));
 
                     return EnvironmentController.addEnvironment(req.queryMap().toMap());
+                });
+
+            });
+            path("/environment/backup/", () -> {
+                // create backup of environment by ID
+                post(":enviroID", "application/x-www-form-urlencoded", (req,res) ->{
+                    System.out.println(req.queryParams("baseUrl"));
+
+                    //params should contain at least name of backup and description of what backup is as strings.
+                    return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
                 });
 
             });
