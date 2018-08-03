@@ -171,4 +171,27 @@ public class EnvironmentController {
 
         return enviroList;
     }
+
+    public static boolean createBackup(String id, Map<String, String[] > params){
+
+
+          // Get from the console Rest api
+            CollibraRest utils = new CollibraRest(params.get("baseUrl")[0], params.get("username")[0], params.get("password")[0]);
+
+            //if (type=="Full") {
+            String JSON_STRING = "{\"name\": \"" + params.get("name") + "\",\"description\": \"" + params.get("description") + "\",\"dgcBackupOptions\": [\"CUSTOMIZATIONS\"],\"repoBackupOptions\": [\"DATA\",\"HISTORY\",\"CONFIGURATION\"],\"key\": \"\"}";
+            //}
+
+            Boolean backUpResult = utils.postData("backup/" + id, JSON_STRING);
+
+            if (backUpResult) {
+                System.out.println("Environment: " + params.get("name") + " has been backed-up successfully!");
+                return true;
+            } else {
+                System.out.println("Backup failed!");
+                return false;
+            }
+
+
+    }
 }
