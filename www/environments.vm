@@ -12,7 +12,7 @@
             #foreach($env in $enviros)
                 #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end
                 #if($env.getStatus() == "STOPPING") #set( $colour = "warning" ) #end
-                #if($env.getStatus() == "STOPPED") #set( $colour = "danger" ) #end
+                #if($env.getStatus() == "STOPPED" || $env.getStatus() == "UNREACHABLE") #set( $colour = "danger" ) #end
                 <div class="card text-center border-$colour">
                     <h5 class="card-header">$env.getName()</h5>
                     <div class="card-body text-$colour">
