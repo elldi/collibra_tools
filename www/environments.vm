@@ -6,6 +6,15 @@
     </head>
     <body>
         <h1 class= "text-center"> DTSquared Environments </h1>
+        <div class="text-center">
+        <form>
+            base URL:<br>
+            <input type="text" name="baseUrl"><br>
+            User Name:<br>
+            <input type="text" name="username"><br>
+            Password:<br>
+            <input type="text" name="password"><br>
+            </form>
         <div class="card-deck">
         #foreach($env in $enviros)
             #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end

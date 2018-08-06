@@ -33,7 +33,7 @@ public class StatusDashboard {
                     VelocityContext context = new VelocityContext();
                     context.put("enviros", EnvironmentController.getEnvironments());
 
-                    Template t = Velocity.getTemplate("./www/environments.vm");
+                    Template t = Velocity.getTemplate("./www/addEnvironments.vm");
 
                     StringWriter sw = new StringWriter();
                     t.merge(context, sw);
@@ -46,6 +46,14 @@ public class StatusDashboard {
                 // GET, PATCH and  DELETE needed for environment model.
                 post("", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
+                    System.out.println(req.queryParams("username"));
+                    System.out.println(req.queryParams("password"));
+                    Velocity.init();
+
+                    VelocityContext context = new VelocityContext();
+                    context.put("enviros", EnvironmentController.getEnvironments());
+
+                    Template t = Velocity.getTemplate("./www/environments.vm");
 
                     return EnvironmentController.addEnvironment(req.queryMap().toMap());
                 });
@@ -56,7 +64,7 @@ public class StatusDashboard {
                 post(":enviroID", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
-                    //params should contain at least name of backup and description of what backup is as strings.
+                    // map should contain name of backup and description as minimum
                     return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
                 });
 
@@ -65,6 +73,7 @@ public class StatusDashboard {
                 put(":enviroID", "application/x-www-form-urlencoded", (req, res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
+                    // map should contain baseurl, username and password as min
                     return EnvironmentController.editEnvironment(req.params(":enviroID"), req.queryMap().toMap());
                 });
             });
