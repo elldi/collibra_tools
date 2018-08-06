@@ -27,9 +27,7 @@ public class StatusDashboard {
             path("/environments", () -> {
                 get("", (req,res) -> {
 
-                    EnvironmentController.updateStatusOfAllEnvironments();
-                    EnvironmentController.updateIdsOfAllEnvironments();
-
+                    EnvironmentController.updateEnvironments();
 
                     Velocity.init();
 

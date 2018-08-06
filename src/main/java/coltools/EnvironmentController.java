@@ -48,7 +48,7 @@ public class EnvironmentController {
 
 
 
-    public static void updateStatusOfAllEnvironments(){
+    public static void updateEnvironments(){
 
 
         for (Environment enviro: currentEnvironments) {
@@ -56,60 +56,27 @@ public class EnvironmentController {
             // Stubbed for POC
 
             // Get from the console Rest api
-            //CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
 
             // With method environment
-            //String json = utils.getData("environment");
+            String json = utils.getData("environment");
 
-            // Remove json object from array
-            //json = json.substring(1,json.length() - 1);
+            if(json.isEmpty()){
+                enviro.setId(UUID.randomUUID().toString());
+                enviro.setStatus("UNREACHABLE");
+            } else {
+                // Remove json object from array
+                json = json.substring(1,json.length() - 1);
 
-            // Parse into a EnviroStatus object
-            //Gson gson = new Gson();
-            //EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
+                // Parse into a EnviroStatus object
+                Gson gson = new Gson();
+                EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
 
-            //System.out.println(r1.5);
-
-            int rand = ThreadLocalRandom.current().nextInt(1, 4);
-            switch (rand){
-                case 1:
-                    enviro.setStatus("RUNNING");
-                    break;
-                case 2:
-                    enviro.setStatus("STOPPING");
-                    break;
-                case 3:
-                    enviro.setStatus("STOPPED");
-                    break;
+                System.out.println(r1.status);
+                enviro.setId(r1.status);
+                enviro.setId(r1.id.toString());
             }
         }
-    }
-    public static List<Environment> updateIdsOfAllEnvironments(){
-
-
-        for (Environment enviro: currentEnvironments) {
-
-            // Stubbed for POC
-
-//            // Get from the console Rest api
-//            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
-//
-//            // With method environment
-//            String json = utils.getData("environment");
-//
-//            // Remove json object from array
-//            json = json.substring(1,json.length() - 1);
-//
-//            // Parse into a EnviroStatus object
-//            Gson gson = new Gson();
-//            EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
-//
-//            System.out.println(r1.id.toString());
-
-            enviro.setId(UUID.randomUUID().toString());
-
-        }
-        return currentEnvironments;
     }
 
     public static List<Environment> getEnvironments(){
@@ -125,6 +92,12 @@ public class EnvironmentController {
     }
 
     public static String addEnvironment(Map<String, String [] > params)  {
+
+        if(params.get("baseUrl").length == 0 ) return "";
+
+        for (Environment environment: currentEnvironments) {
+            if(environment.getBaseUrl().equals(params.get("baseUrl")[0]))return "";
+        }
 
         Environment e1 = new Environment();
         if(params.containsKey("baseUrl") || params.get("baseUrl").length > 0){
@@ -151,27 +124,19 @@ public class EnvironmentController {
         return currentEnvironments.add(e);
     }
 
-    public static List<Environment> removeEnvironment(ArrayList<Environment> enviroList, ArrayList<Environment> removeList){
+    public static boolean removeEnvironment(String id){
 
-        //Define counter to keep track of iterations through for loop
-        Integer counter=0;
-        //collection to keep track of index of environments to remove
-        ArrayList<Integer> matchInt = new ArrayList<Integer>();
-        //Loop through to gather which environments to remove
-        for(Environment enviro: enviroList){
-            for (Environment remEnviro: removeList) {
-                if (enviro.equals(remEnviro)) {
-                    matchInt.add(counter);
-                    break;
-                }
+        for (int x = 0; x < currentEnvironments.size() ; x++) {
+            if(currentEnvironments.get(x).getId().equals(id)) {
+                currentEnvironments.remove(x);
+                return true;
             }
-            counter=counter++;
         }
-        //Remove required Environments
-        for (int i=0; i < matchInt.size(); i++){
-            enviroList.remove(i);
-        }
-        return enviroList;
+        return false;
+
+        // File in data_store also needs to be removed.
+        // Could be solved by simply clearing the folder everytime it is read.
+
     }
 
     public static List<Environment> editEnvironment(String id, Map<String, String[] > params) {
