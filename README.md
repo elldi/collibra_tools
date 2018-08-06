@@ -2,11 +2,11 @@
 
 Various light weight programs to provide a more seamless Collibra experience from the administration side.
 
-## Environment Status Monitor
+## Collibra Environment Monitor
 * Currently under development.
+* Designed to keep a eye on multiple environments and their status.
+* Create backups
+* View console log with filters
 
 ## Git repo deploy of workflows
-* Idea
-
-## Better console log feed
 * Idea

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <h1 class= "text-center"> Add new environment </h1>
+        </br>
+        <div class="container">
+            <form action="/environment" method="post">
+                <div class="form-group">
+                    <label for="baseUrl">Base URL</label>
+                    <input type="text" value="" class="form-control" name="baseUrl" aria-describedby="baseHelp" placeholder="Enter Base URL">
+                    <small id="baseHelp" class="form-text text-muted">E.G. http://computername:4400</small>
+                </div>
+                <div class="form-group">
+                    <label for="Username">Username</label>
+                    <input class="form-control" name="username" placeholder="Enter Username">
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" class="form-control" name="password" placeholder="Enter Password">
+                </div>
+                <div class="form-group">
+                    <label for="Name">Given Name</label>
+                    <input class="form-control" name="name" placeholder="Enter Name">
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+            </form>
+        </div>
+    </body>
+</html>

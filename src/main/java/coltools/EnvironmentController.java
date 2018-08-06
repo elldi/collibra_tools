@@ -3,6 +3,7 @@ package coltools;
 import coldata.EnviroStatus;
 import com.google.gson.Gson;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -18,28 +19,31 @@ public class EnvironmentController {
 
         // Check directory for environment files, if files exists read and import into currentEnvironments.
 
+        DataStore dataStore = new DataStore();
+        Gson gson = new Gson();
+        for (File file: dataStore.getFilesFromDataStore()) {
+
+            Environment env = gson.fromJson(dataStore.read(file.getAbsolutePath()), Environment.class);
+
+            currentEnvironments.add(env);
+        }
+
     }
 
 
     public static boolean saveEnvironments(){
+
         // Iterate over environments list, convert to json and save in file.
-
         int counter = 0 ;
-
         for (Environment enviro: currentEnvironments) {
             Gson gson = new Gson();
-
             String output = gson.toJson(enviro);
 
             if(new DataStore().write(enviro.getName() + ".json", output))
                 counter++;
-
-
-
         }
 
         return counter == currentEnvironments.size();
-
     }
 
 
@@ -64,7 +68,7 @@ public class EnvironmentController {
             //Gson gson = new Gson();
             //EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
 
-            //System.out.println(r1.status);
+            //System.out.println(r1.5);
 
             int rand = ThreadLocalRandom.current().nextInt(1, 4);
             switch (rand){
@@ -112,7 +116,15 @@ public class EnvironmentController {
         return currentEnvironments;
     }
 
-    public static boolean addEnvironment(Map<String, String [] > params)  {
+    public static Environment getEnvironment(String id){
+
+        for (Environment e: currentEnvironments) {
+            if(e.getId().equals(id)) return e;
+        }
+        return new Environment();
+    }
+
+    public static String addEnvironment(Map<String, String [] > params)  {
 
         Environment e1 = new Environment();
         if(params.containsKey("baseUrl") || params.get("baseUrl").length > 0){
@@ -129,8 +141,10 @@ public class EnvironmentController {
             e1.setName(params.get("name")[0]);
         }
 
+        e1.setId(UUID.randomUUID().toString());
+
         currentEnvironments.add(e1);
-        return true;
+        return e1.getId();
     }
 
     public static boolean addEnvironment(Environment e){

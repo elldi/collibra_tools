@@ -6,37 +6,26 @@
     </head>
     <body>
         <h1 class= "text-center"> DTSquared Environments </h1>
-        <div class="text-center">
-        <form>
-            base URL:<br>
-            <input type="text" name="baseUrl"><br>
-            User Name:<br>
-            <input type="text" name="username"><br>
-            Password:<br>
-            <input type="text" name="password"><br>
-            </form>
-        <div class="card-deck">
-        #foreach($env in $enviros)
-            #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end
-            #if($env.getStatus() == "STOPPING") #set( $colour = "warning" ) #end
-            #if($env.getStatus() == "STOPPED") #set( $colour = "danger" ) #end
-            <div class="card text-center border-$colour">
-                <h5 class="card-header">$env.getName()</h5>
-                <div class="card-body text-$colour">
-                    <h6 class="card-title">$env.getStatus() </h6>
-                    <p class="card-text"><a href="$env.getBaseUrl()">$env.getBaseUrl()</a></p>
-                    <p class="card-text">ID: $env.getId()</p>
-                    <a href="#" class="btn btn-primary">Console</a>
-                    <a href="#" class="btn btn-primary">Edit</a>
-                    <br><br><form method="post" action="environment/backup/$env.getId()" class="btn btn-info btn-blockS">
-                                <input type="hidden" name="params" value=$env.getId()>
-                                <a href="environment/backup/$env.getId()" class="btn btn-info btn-blockS">
-                                Backup
-                                </a>
-                            </form>
+        </br>
+        <div class="container">
+            <div class="card-deck">
+            #foreach($env in $enviros)
+                #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end
+                #if($env.getStatus() == "STOPPING") #set( $colour = "warning" ) #end
+                #if($env.getStatus() == "STOPPED") #set( $colour = "danger" ) #end
+                <div class="card text-center border-$colour">
+                    <h5 class="card-header">$env.getName()</h5>
+                    <div class="card-body text-$colour">
+                        <h6 class="card-title">$env.getStatus() </h6>
+                        <p class="card-text"><a href="$env.getBaseUrl()" target="_blank">$env.getBaseUrl()</a></p>
+                        <p class="card-text">ID: $env.getId()</p>
+                        <a href="#" class="btn btn-primary">Console</a>
+                        <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
+                        <a href="environment/backup/$env.getId()" class="btn btn-info btn-blockS">Backup</a>
+                    </div>
                 </div>
+            #end
             </div>
-        #end
         </div>
     </body>
 </html>
