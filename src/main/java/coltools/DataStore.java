@@ -1,8 +1,7 @@
 package coltools;
 
 
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.*;
 
 public class DataStore {
 
@@ -19,7 +18,7 @@ public class DataStore {
             return true;
 
         } catch (Exception e) {
-            //e.printStackTrace();
+            e.printStackTrace();
             return false;
         }
 
@@ -27,8 +26,26 @@ public class DataStore {
 
     public String read(String filename){
 
-        return "this is data from a file.";
+        StringBuilder output = new StringBuilder();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(filename));
+            String line;
+            while ((line = reader.readLine()) != null)
+            {
+                output.append(line);
+            }
+            reader.close();
 
+        } catch (IOException e) {
+            e.printStackTrace();
+            return "";
+        }
+        return output.toString();
+
+    }
+
+    public File [] getFilesFromDataStore(){
+        return new File("./data_store").listFiles();
     }
 
 

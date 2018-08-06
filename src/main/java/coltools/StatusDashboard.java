@@ -20,6 +20,8 @@ public class StatusDashboard {
 
     public static void main(String[] args) {
 
+        EnvironmentController.initialise();
+
         port(4545);
         path("/", () -> {
             path("/environments", () -> {
@@ -27,6 +29,7 @@ public class StatusDashboard {
 
                     EnvironmentController.updateStatusOfAllEnvironments();
                     EnvironmentController.updateIdsOfAllEnvironments();
+
 
                     Velocity.init();
 
@@ -42,15 +45,6 @@ public class StatusDashboard {
 
                 });
             });
-            path("/environment", () -> {
-                // GET, PATCH and  DELETE needed for environment model.
-                post("", "application/x-www-form-urlencoded", (req,res) ->{
-                    System.out.println(req.queryParams("baseUrl"));
-
-                    return EnvironmentController.addEnvironment(req.queryMap().toMap());
-                });
-
-            });
             path("/environment/backup/", () -> {
                 // create backup of environment by ID
                 post(":enviroID", "application/x-www-form-urlencoded", (req,res) ->{
@@ -61,16 +55,67 @@ public class StatusDashboard {
                 });
 
             });
-            path("/environment/" , () -> {
-                put(":enviroID", "application/x-www-form-urlencoded", (req, res) ->{
+            path("/environment" , () -> {
+
+                get("", (req,res) -> {
+                    // Add new environment page
+                    Velocity.init();
+
+                    VelocityContext context = new VelocityContext();
+                    // context.put("environment", EnvironmentController.getEnvironment(req.params(":id")));
+
+                    Template t = Velocity.getTemplate("./www/environment_add.vm");
+
+                    StringWriter sw = new StringWriter();
+                    t.merge(context, sw);
+
+                    return sw;
+                });
+
+                get("/:id", (req,res) -> {
+
+                    Velocity.init();
+
+                    VelocityContext context = new VelocityContext();
+                    context.put("environment", EnvironmentController.getEnvironment(req.params(":id")));
+
+                    Template t = Velocity.getTemplate("./www/environment_edit.vm");
+
+                    StringWriter sw = new StringWriter();
+                    t.merge(context, sw);
+
+                    return sw;
+                });
+
+                post("", "application/x-www-form-urlencoded", (req,res) ->{
+                    System.out.println(req.queryParams("baseUrl"));
+
+                    String enviroID = EnvironmentController.addEnvironment(req.queryMap().toMap());
+
+                    EnvironmentController.saveEnvironments();
+
+
+                    Velocity.init();
+
+                    VelocityContext context = new VelocityContext();
+                    context.put("environment", EnvironmentController.getEnvironment(enviroID));
+
+                    Template t = Velocity.getTemplate("./www/environment_edit.vm");
+
+                    StringWriter sw = new StringWriter();
+                    t.merge(context, sw);
+
+                    return sw ;
+                });
+
+                put("/:enviroID", "application/x-www-form-urlencoded", (req, res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
                     return EnvironmentController.editEnvironment(req.params(":enviroID"), req.queryMap().toMap());
                 });
+
             });
-
         });
-
 
 
     }

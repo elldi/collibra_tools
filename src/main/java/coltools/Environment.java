@@ -1,9 +1,11 @@
 package coltools;
 
+import java.util.Objects;
+
 /**
  * Created by elliot on 11/07/2018.
  */
-public class Environment implements Comparable{
+public class Environment {
 
     private String baseUrl;
     private String username;
@@ -34,7 +36,7 @@ public class Environment implements Comparable{
     public String getName(){ return name; }
     public String getId(){ return id; }
 
-    // Standard setter methods 
+    // Standard setter methods
     public void setBaseUrl(String baseUrl) {
         this.baseUrl = baseUrl;
     }
@@ -55,9 +57,14 @@ public class Environment implements Comparable{
     }
 
 
-    // Implement compareTo method so that environments can be checked for equality.
-    @Override
-    public int compareTo(Object o) {
-        return 0;
+
+    public boolean equals(Environment e1) {
+
+        return Objects.equals(e1.getBaseUrl(), this.getBaseUrl())
+                && Objects.equals(e1.getUsername(), this.getUsername())
+                && Objects.equals(e1.getPassword(), this.getPassword())
+                && Objects.equals(e1.getStatus(), this.getStatus())
+                && Objects.equals(e1.getUsername(), this.getUsername())
+                && Objects.equals(e1.getUsername(), this.getUsername());
     }
 }
