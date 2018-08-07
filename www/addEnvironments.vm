@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta http-equiv="refresh" content="30; URL=/">
+    </head>
+    <body>
+        <h1 class= "text-center"> DTSquared Environments </h1>
+        <div class="text-center">
+                    <br><br><form method="post" action="/environment" enctype="application/x-www-form-urlencoded" class="btn btn-info btn-blockS">
+                                Name:<br>
+                                <input type="text" name="name"><br>
+                                Base Url:<br>
+                                <input type="text" name="baseUrl"><br>
+                                Username:<br>
+                                <input type="text" name="username"><br>
+                                Password:<br>
+                                <input type="text" name="password"><br>
+                                <button type="submit">Add Environment</button>
+                            </form>
+
+
+        </div>
+    </body>
+</html>

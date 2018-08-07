@@ -34,7 +34,15 @@
                         <p class="card-text">ID: $env.getId()</p>
                         <a href="#" class="btn btn-primary">Console</a>
                         <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
-                        <a href="environment/backup/$env.getId()" class="btn btn-info btn-blockS">Backup</a>
+                        <br><br><form method="post" action="/environment/backup/$env.getId()" class="btn btn-info btn-blockS">
+                            <input type="hidden" name="name" value="$env.getName()">
+                            <input type="hidden" name="baseUrl" value="$env.getBaseUrl()">
+                            <input type="hidden" name="username" value="$env.getUsername()">
+                            <input type="hidden" name="password" value="$env.getPassword()">
+                                Description:
+                                <input type="text" name="description"><br>
+                                <button type="submit">Backup</button>
+                        </form>
                     </div>
                 </div>
             #end
