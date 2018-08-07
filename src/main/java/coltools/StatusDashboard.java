@@ -34,6 +34,7 @@ public class StatusDashboard {
                     VelocityContext context = new VelocityContext();
                     context.put("enviros", EnvironmentController.getEnvironments());
 
+                    Template t = Velocity.getTemplate("./www/environments.vm");
 
                     StringWriter sw = new StringWriter();
                     t.merge(context, sw);
@@ -47,7 +48,7 @@ public class StatusDashboard {
                 post(":enviroID", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
-                    // map should contain name of backup and description as minimum
+                    //params should contain at least name of backup and description of what backup is as strings.
                     return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
                 });
 

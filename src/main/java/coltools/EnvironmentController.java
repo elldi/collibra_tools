@@ -73,7 +73,7 @@ public class EnvironmentController {
                 EnviroStatus r1  = gson.fromJson(json, EnviroStatus.class);
 
                 System.out.println(r1.status);
-                enviro.setId(r1.status);
+                enviro.setStatus(r1.status);
                 enviro.setId(r1.id.toString());
             }
         }
@@ -189,13 +189,13 @@ public class EnvironmentController {
             CollibraRest utils = new CollibraRest(params.get("baseUrl")[0], params.get("username")[0], params.get("password")[0]);
 
             //if (type=="Full") {
-            String JSON_STRING = "{\"name\": \"" + params.get("name") + "\",\"description\": \"" + params.get("description") + "\",\"dgcBackupOptions\": [\"CUSTOMIZATIONS\"],\"repoBackupOptions\": [\"DATA\",\"HISTORY\",\"CONFIGURATION\"],\"key\": \"\"}";
+            String JSON_STRING = "{\"name\": \"" + params.get("name")[0] + "\",\"description\": \"" + params.get("description")[0] + "\",\"dgcBackupOptions\": [\"CUSTOMIZATIONS\"],\"repoBackupOptions\": [\"DATA\",\"HISTORY\",\"CONFIGURATION\"],\"key\": \"\"}";
             //}
 
             Boolean backUpResult = utils.postData("backup/" + id, JSON_STRING);
 
             if (backUpResult) {
-                System.out.println("Environment: " + params.get("name") + " has been backed-up successfully!");
+                System.out.println("Environment: " + params.get("name")[0] + " has been backed-up successfully!");
                 return true;
             } else {
                 System.out.println("Backup failed!");
