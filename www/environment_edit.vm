@@ -7,7 +7,7 @@
         <h1 class= "text-center"> $environment.getName() </h1>
         </br>
         <div class="container">
-            <form action="/environment" method="post">
+            <form action="/environment/$environment.getId()" method="post">
                 <div class="form-group">
                     <label for="baseUrl">Base URL</label>
                     <input value="$environment.getBaseUrl()" class="form-control" name="baseUrl" aria-describedby="baseHelp">

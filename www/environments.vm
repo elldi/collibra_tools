@@ -8,6 +8,19 @@
         <h1 class= "text-center"> DTSquared Environments </h1>
         </br>
         <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/environments"> Environments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/environment">Add Environment</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            </br>
             <div class="card-deck">
             #foreach($env in $enviros)
                 #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end

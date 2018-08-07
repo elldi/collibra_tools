@@ -50,11 +50,11 @@ public class EnvironmentController {
 
     public static void updateEnvironments(){
 
-
         for (Environment enviro: currentEnvironments) {
 
             // Stubbed for POC
 
+            System.out.println(enviro.getBaseUrl());
             // Get from the console Rest api
             CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
 
@@ -139,38 +139,34 @@ public class EnvironmentController {
 
     }
 
-    public static List<Environment> editEnvironment(String id, Map<String, String[] > params) {
-        Integer index=0;
-        Integer count=0;
-        boolean found=false;
+    public static Environment editEnvironment(String id, Map<String, String[] > params) {
 
-        String[] editEnv = params.get(id);
+        Environment editEnviro = null;
 
         for (Environment enviro: currentEnvironments){
-
-            if (id.equals(enviro.getId())){
-                index=count;
-                found=true;
-            }
-            count++;
+            if (id.equals(enviro.getId()))
+                editEnviro = enviro;
         }
 
-        if (found) {
+        if (editEnviro != null ) {
             if(params.containsKey("baseUrl") || params.get("baseUrl").length > 0){
-                currentEnvironments.get(index).setBaseUrl(params.get("baseUrl")[0]);
+                editEnviro.setBaseUrl(params.get("baseUrl")[0]);
             }
             if(params.containsKey("username") || params.get("username").length > 0){
-                currentEnvironments.get(index).setUsername(params.get("username")[0]);
+                editEnviro.setUsername(params.get("username")[0]);
             }
             if(params.containsKey("password") || params.get("password").length > 0){
-                currentEnvironments.get(index).setPassword(params.get("password")[0]);
+                editEnviro.setPassword(params.get("password")[0]);
             }
             if(params.containsKey("name") || params.get("name").length > 0){
                 System.out.println(params.get("name")[0]);
-                currentEnvironments.get(index).setName(params.get("name")[0]);
+                editEnviro.setName(params.get("name")[0]);
             }
         }
-        return currentEnvironments;
+
+        new DataStore().deleteFilesInDataStore();
+
+        return editEnviro;
     }
 
     public static ArrayList<Environment> editEnvironment(Integer index, ArrayList<Environment> enviroList, String newBaseUrl, String newUserName, String newPassword) {

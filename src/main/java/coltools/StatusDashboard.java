@@ -106,10 +106,22 @@ public class StatusDashboard {
                     return sw ;
                 });
 
-                put("/:enviroID", "application/x-www-form-urlencoded", (req, res) ->{
+                post("/:id", "application/x-www-form-urlencoded", (req, res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
-                    return EnvironmentController.editEnvironment(req.params(":enviroID"), req.queryMap().toMap());
+                    Velocity.init();
+
+                    VelocityContext context = new VelocityContext();
+                    context.put("environment", EnvironmentController.editEnvironment(req.params(":id"), req.queryMap().toMap()));
+
+                    Template t = Velocity.getTemplate("./www/environment_edit.vm");
+
+                    StringWriter sw = new StringWriter();
+                    t.merge(context, sw);
+
+                    EnvironmentController.saveEnvironments();
+
+                    return sw;
                 });
 
             });

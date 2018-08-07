@@ -2,6 +2,7 @@ package coltools;
 
 
 import java.io.*;
+import java.util.Arrays;
 
 public class DataStore {
 
@@ -46,6 +47,11 @@ public class DataStore {
 
     public File [] getFilesFromDataStore(){
         return new File("./data_store").listFiles();
+    }
+
+    public void deleteFilesInDataStore(){
+        Arrays.stream(new File("./data_store").listFiles()).forEach(File::delete);
+
     }
 
 
