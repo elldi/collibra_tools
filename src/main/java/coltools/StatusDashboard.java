@@ -7,6 +7,7 @@ package coltools;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
+import sun.rmi.runtime.Log;
 
 
 import java.io.StringWriter;
@@ -126,7 +127,9 @@ public class StatusDashboard {
 
                     String dgcID = ServiceController.getIdOfDGC(e);
 
-                    return "";
+                    String log = LogController.getLog(e, dgcID);
+
+                    return log;
                 });
 
             });

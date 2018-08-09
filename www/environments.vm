@@ -34,6 +34,7 @@
                         <p class="card-text">ID: $env.getId()</p>
                         <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
                         <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
+                        <a href="/environment/$env.getId()/log" class="btn btn-primary">Log</a>
                         <a href="/environment/delete/$env.getId()" class="btn btn-danger">Delete</a>
                         </br>
                         <form method="post" action="/environment/backup/$env.getId()">
