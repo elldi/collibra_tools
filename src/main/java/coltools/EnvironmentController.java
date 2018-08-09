@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.concurrent.ThreadLocalRandom;
 
 
 public class EnvironmentController {
@@ -19,11 +18,11 @@ public class EnvironmentController {
 
         // Check directory for environment files, if files exists read and import into currentEnvironments.
 
-        DataStore dataStore = new DataStore();
+        FileController fileController = new FileController();
         Gson gson = new Gson();
-        for (File file: dataStore.getFilesFromDataStore()) {
+        for (File file: fileController.getFilesFromDataStore()) {
 
-            Environment env = gson.fromJson(dataStore.read(file.getAbsolutePath()), Environment.class);
+            Environment env = gson.fromJson(fileController.read(file.getAbsolutePath()), Environment.class);
 
             currentEnvironments.add(env);
         }
@@ -39,7 +38,7 @@ public class EnvironmentController {
             Gson gson = new Gson();
             String output = gson.toJson(enviro);
 
-            if(new DataStore().write(enviro.getName() + ".json", output))
+            if(new FileController().writeToDataStore(enviro.getName() + ".json", output))
                 counter++;
         }
 
@@ -130,7 +129,7 @@ public class EnvironmentController {
             if(currentEnvironments.get(x).getId().equals(id)) {
                 currentEnvironments.remove(x);
 
-                DataStore.deleteFilesInDataStore();
+                FileController.deleteFilesInDataStore();
                 saveEnvironments();
                 return true;
             }
@@ -165,7 +164,7 @@ public class EnvironmentController {
             }
         }
 
-        DataStore.deleteFilesInDataStore();
+        FileController.deleteFilesInDataStore();
 
         return editEnviro;
     }

@@ -4,13 +4,13 @@ package coltools;
 import java.io.*;
 import java.util.Arrays;
 
-public class DataStore {
+public class FileController {
 
     FileReader in = null;
     FileWriter out = null;
 
 
-    public boolean write(String filename, String data){
+    public boolean writeToDataStore(String filename, String data){
 
         try {
             out = new FileWriter("./data_store/" + filename);

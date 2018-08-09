@@ -117,19 +117,16 @@ public class StatusDashboard {
 
                     EnvironmentController.removeEnvironment(req.params(":id"));
 
-                    Velocity.init();
-
-                    VelocityContext context = new VelocityContext();
-                    context.put("enviros", EnvironmentController.getEnvironments());
-
-                    Template t = Velocity.getTemplate("./www/environments.vm");
-
-                    StringWriter sw = new StringWriter();
-                    t.merge(context, sw);
-
-                    //return sw;
-
                     return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
+                });
+
+                get("/:id/log", (req,res) -> {
+
+                    Environment e = EnvironmentController.getEnvironment(req.params(":id"));
+
+                    String dgcID = ServiceController.getIdOfDGC(e);
+
+                    return "";
                 });
 
             });
