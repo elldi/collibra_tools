@@ -34,7 +34,8 @@
                         <p class="card-text">ID: $env.getId()</p>
                         <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
                         <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
-                        <br><br>
+                        <a href="/environment/delete/$env.getId()" class="btn btn-danger">Delete</a>
+                        </br>
                         <form method="post" action="/environment/backup/$env.getId()">
                             <input type="hidden" name="name" value="$env.getName()">
                             <input type="hidden" name="baseUrl" value="$env.getBaseUrl()">
@@ -43,8 +44,8 @@
                             <div class="form-group">
                                 <label> Description </label>
                                 <input type="text" name="description">
+                                <button type="submit" class="btn btn-primary">Backup</button>
                             </div>
-                            <button type="submit" class="btn btn-primary">Backup</button>
                         </form>
                     </div>
                 </div>

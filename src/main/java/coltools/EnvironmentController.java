@@ -129,13 +129,14 @@ public class EnvironmentController {
         for (int x = 0; x < currentEnvironments.size() ; x++) {
             if(currentEnvironments.get(x).getId().equals(id)) {
                 currentEnvironments.remove(x);
+
+                DataStore.deleteFilesInDataStore();
+                saveEnvironments();
                 return true;
             }
         }
-        return false;
 
-        // File in data_store also needs to be removed.
-        // Could be solved by simply clearing the folder everytime it is read.
+        return false;
 
     }
 
@@ -164,7 +165,7 @@ public class EnvironmentController {
             }
         }
 
-        new DataStore().deleteFilesInDataStore();
+        DataStore.deleteFilesInDataStore();
 
         return editEnviro;
     }

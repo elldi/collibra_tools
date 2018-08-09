@@ -49,7 +49,7 @@ public class DataStore {
         return new File("./data_store").listFiles();
     }
 
-    public void deleteFilesInDataStore(){
+    public static void deleteFilesInDataStore(){
         Arrays.stream(new File("./data_store").listFiles()).forEach(File::delete);
 
     }

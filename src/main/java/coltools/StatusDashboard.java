@@ -43,16 +43,7 @@ public class StatusDashboard {
 
                 });
             });
-            path("/environment/backup/", () -> {
-                // create backup of environment by ID
-                post(":enviroID", "application/x-www-form-urlencoded", (req,res) ->{
-                    System.out.println(req.queryParams("baseUrl"));
 
-                    //params should contain at least name of backup and description of what backup is as strings.
-                    return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
-                });
-
-            });
             path("/environment" , () -> {
 
                 get("", (req,res) -> {
@@ -107,21 +98,38 @@ public class StatusDashboard {
                 });
 
                 post("/:id", "application/x-www-form-urlencoded", (req, res) ->{
+
+                    EnvironmentController.editEnvironment(req.params(":id"), req.queryMap().toMap());
+
+                    EnvironmentController.saveEnvironments();
+
+                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
+                });
+
+                post("/backup/:enviroID", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
+
+                    //params should contain at least name of backup and description of what backup is as strings.
+                    return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
+                });
+
+                get("/delete/:id", "application/x-www-form-urlencoded", (req,res) -> {
+
+                    EnvironmentController.removeEnvironment(req.params(":id"));
 
                     Velocity.init();
 
                     VelocityContext context = new VelocityContext();
-                    context.put("environment", EnvironmentController.editEnvironment(req.params(":id"), req.queryMap().toMap()));
+                    context.put("enviros", EnvironmentController.getEnvironments());
 
-                    Template t = Velocity.getTemplate("./www/environment_edit.vm");
+                    Template t = Velocity.getTemplate("./www/environments.vm");
 
                     StringWriter sw = new StringWriter();
                     t.merge(context, sw);
 
-                    EnvironmentController.saveEnvironments();
+                    //return sw;
 
-                    return sw;
+                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
                 });
 
             });
