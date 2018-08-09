@@ -21,7 +21,7 @@ public class ActionBackup {
         for (Environment enviro: enviroList) {
 
             // Get from the console Rest api
-            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
 
             // With method environment
             String json = utils.getData("environment");
@@ -57,7 +57,7 @@ public class ActionBackup {
         for (Environment enviro: enviroList) {
 
             // Get from the console Rest api
-            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
 
             // With method environment
             String json = utils.getData("backup");
@@ -86,7 +86,7 @@ public class ActionBackup {
     public static void restoreBackup(Environment enviro, String backupId, String type){
 
             // Get from the console Rest api
-            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUserName(), enviro.getPassword());
+            CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
             // With method environment
             String json = utils.getData("environment");
 

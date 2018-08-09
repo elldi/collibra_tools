@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <meta http-equiv="refresh" content="30; URL=/environments">
+    </head>
+    <body>
+        <h1 class= "text-center"> DTSquared Environments </h1>
+        </br>
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="/environments"> Environments</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/environment">Add Environment</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            </br>
+            <div class="card-deck">
+            #foreach($env in $enviros)
+                #if($env.getStatus() == "RUNNING") #set( $colour = "success" ) #end
+                #if($env.getStatus() == "STOPPING") #set( $colour = "warning" ) #end
+                #if($env.getStatus() == "STOPPED" || $env.getStatus() == "UNREACHABLE") #set( $colour = "danger" ) #end
+                <div class="card text-center border-$colour">
+                    <h5 class="card-header">$env.getName()</h5>
+                    <div class="card-body text-$colour">
+                        <h6 class="card-title">$env.getStatus() </h6>
+                        <p class="card-text"><a href="$env.getBaseUrl()" target="_blank">$env.getBaseUrl()</a></p>
+                        <p class="card-text">ID: $env.getId()</p>
+                        <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
+                        <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
+                        <a href="/environment/$env.getId()/log" class="btn btn-primary">Log</a>
+                        <a href="/environment/$env.getId()/delete" class="btn btn-danger">Delete</a>
+                        </br>
+                        <form method="post" action="/environment/$env.getId()/backup">
+                            <input type="hidden" name="name" value="$env.getName()">
+                            <input type="hidden" name="baseUrl" value="$env.getBaseUrl()">
+                            <input type="hidden" name="username" value="$env.getUsername()">
+                            <input type="hidden" name="password" value="$env.getPassword()">
+                            <div class="form-group">
+                                <label> Description </label>
+                                <input type="text" name="description">
+                                <button type="submit" class="btn btn-primary">Backup</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            #end
+            </div>
+        </div>
+    </body>
+</html>
