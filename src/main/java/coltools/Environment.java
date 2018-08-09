@@ -57,6 +57,10 @@ public class Environment {
     }
 
 
+    public String getConsoleUrl(){
+
+        return baseUrl.replace("/rest/", "");
+    }
 
     public boolean equals(Environment e1) {
 

@@ -38,7 +38,7 @@
                     <label for="Name">Given Name</label>
                     <input class="form-control" name="name" placeholder="Enter Name">
                 </div>
-                <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" class="btn btn-primary">Add</button>
             </form>
         </div>
     </body>
