@@ -35,9 +35,9 @@
                         <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
                         <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
                         <a href="/environment/$env.getId()/log" class="btn btn-primary">Log</a>
-                        <a href="/environment/delete/$env.getId()" class="btn btn-danger">Delete</a>
+                        <a href="/environment/$env.getId()/delete" class="btn btn-danger">Delete</a>
                         </br>
-                        <form method="post" action="/environment/backup/$env.getId()">
+                        <form method="post" action="/environment/$env.getId()/backup">
                             <input type="hidden" name="name" value="$env.getName()">
                             <input type="hidden" name="baseUrl" value="$env.getBaseUrl()">
                             <input type="hidden" name="username" value="$env.getUsername()">

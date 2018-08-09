@@ -84,18 +84,7 @@ public class StatusDashboard {
 
                     EnvironmentController.saveEnvironments();
 
-
-                    Velocity.init();
-
-                    VelocityContext context = new VelocityContext();
-                    context.put("environment", EnvironmentController.getEnvironment(enviroID));
-
-                    Template t = Velocity.getTemplate("./www/environment_edit.vm");
-
-                    StringWriter sw = new StringWriter();
-                    t.merge(context, sw);
-
-                    return sw ;
+                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
                 });
 
                 post("/:id", "application/x-www-form-urlencoded", (req, res) ->{
@@ -107,14 +96,14 @@ public class StatusDashboard {
                     return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
                 });
 
-                post("/backup/:enviroID", "application/x-www-form-urlencoded", (req,res) ->{
+                post("/:id/backup", "application/x-www-form-urlencoded", (req,res) ->{
                     System.out.println(req.queryParams("baseUrl"));
 
                     //params should contain at least name of backup and description of what backup is as strings.
-                    return EnvironmentController.createBackup(req.params(":enviroID"), req.queryMap().toMap());
+                    return EnvironmentController.createBackup(req.params(":id"), req.queryMap().toMap());
                 });
 
-                get("/delete/:id", "application/x-www-form-urlencoded", (req,res) -> {
+                get("/:id/delete", "application/x-www-form-urlencoded", (req,res) -> {
 
                     EnvironmentController.removeEnvironment(req.params(":id"));
 
