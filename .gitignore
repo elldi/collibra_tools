@@ -4,4 +4,3 @@ workflows
 *.log
 *.iml
 target
-data_store
