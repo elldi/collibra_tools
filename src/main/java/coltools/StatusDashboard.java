@@ -7,7 +7,6 @@ package coltools;
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.Velocity;
-import sun.rmi.runtime.Log;
 
 
 import java.io.StringWriter;
@@ -82,9 +81,15 @@ public class StatusDashboard {
 
                     String enviroID = EnvironmentController.addEnvironment(req.queryMap().toMap());
 
-                    EnvironmentController.saveEnvironments();
+                    if(enviroID.equals("")) {
 
-                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
+                        return "<script type=\"text/javascript\"> alert(\"Entered Base URL already exists!\");" +
+                                "window.location.href = \"/environment\";</script>";
+                    } else {
+
+                        EnvironmentController.saveEnvironments();
+                        return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />";
+                    }
                 });
 
                 post("/:id", "application/x-www-form-urlencoded", (req, res) ->{
@@ -93,7 +98,7 @@ public class StatusDashboard {
 
                     EnvironmentController.saveEnvironments();
 
-                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
+                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />";
                 });
 
                 post("/:id/backup", "application/x-www-form-urlencoded", (req,res) ->{
@@ -107,18 +112,26 @@ public class StatusDashboard {
 
                     EnvironmentController.removeEnvironment(req.params(":id"));
 
-                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />\"";
+                    return "<meta http-equiv=\"refresh\" content=\"0; url=/environments\" />";
                 });
 
                 get("/:id/log", (req,res) -> {
 
                     Environment e = EnvironmentController.getEnvironment(req.params(":id"));
-
                     String dgcID = ServiceController.getIdOfDGC(e);
 
-                    String log = LogController.getLog(e, dgcID);
+                    Velocity.init();
 
-                    return log;
+                    VelocityContext context = new VelocityContext();
+                    context.put("logs", LogController.getLog(e, dgcID));
+                    context.put("environment",e);
+
+                    Template t = Velocity.getTemplate("./www/log.vm");
+
+                    StringWriter sw = new StringWriter();
+                    t.merge(context, sw);
+
+                    return sw;
                 });
 
             });

@@ -1,11 +1,15 @@
 package coltools;
 
+import com.google.gson.Gson;
+
+import java.util.List;
+
 /**
  * Created by elliot on 09/08/2018.
  */
 public class LogController {
 
-    public static String getLog(Environment enviro, String id){
+    public static String[] getLog(Environment enviro, String id){
 
         CollibraRest utils = new CollibraRest(enviro.getBaseUrl(), enviro.getUsername(), enviro.getPassword());
 
@@ -13,6 +17,11 @@ public class LogController {
 
         System.out.println(output);
 
-        return output;
+        output = output.replace("[", "");
+        output = output.replace("]", "");
+
+
+
+        return output.split(",");
     }
 }

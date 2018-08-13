@@ -32,10 +32,12 @@
                         <h6 class="card-title">$env.getStatus() </h6>
                         <p class="card-text"><a href="$env.getBaseUrl()" target="_blank">$env.getBaseUrl()</a></p>
                         <p class="card-text">ID: $env.getId()</p>
-                        <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
-                        <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
-                        <a href="/environment/$env.getId()/log" class="btn btn-primary">Log</a>
-                        <a href="/environment/$env.getId()/delete" class="btn btn-danger">Delete</a>
+                        <div>
+                            <a href="/environment/$env.getId()" class="btn btn-primary">Edit</a>
+                            <a href="$env.getConsoleUrl()" target="_blank" class="btn btn-primary">Console</a>
+                            <a href="/environment/$env.getId()/log" class="btn btn-primary">Log</a>
+                            <a href="/environment/$env.getId()/delete" class="btn btn-danger">Delete</a>
+                        </div>
                         </br>
                         <form method="post" action="/environment/$env.getId()/backup">
                             <input type="hidden" name="name" value="$env.getName()">
